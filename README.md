@@ -409,7 +409,7 @@ npm install vue -S
 > vue-template-compiler 用于编译模板
 
 > cache-loader 用于缓存loader编译的结果
-thread-loader 使用 worker 池来运行loader，每个 worker 都是一个 node.js 进程。
+> thread-loader 使用 worker 池来运行loader，每个 worker 都是一个 node.js 进程。
 
 `webpack.base.conf.js`:
 ```js
@@ -572,7 +572,7 @@ plugins: [
     4. sourceMap
     5. 构建前清除上一次构建的内容
     6. ...
-    
+
 ```shell
 npm install @intervolga/optimize-cssnano-plugin mini-css-extract-plugin clean-webpack-plugin webpack-merge copy-webpack-plugin -D
 ```
@@ -582,7 +582,7 @@ npm install @intervolga/optimize-cssnano-plugin mini-css-extract-plugin clean-we
     3. clean-webpack-plugin 用于删除上次构建的文件
     4. webpack-merge 合并 webpack配置
     5. copy-webpack-plugin 用户拷贝静态资源
-    
+
 5.3 开发环境配置
 
 `build/webpack.dev.js`:
@@ -596,6 +596,17 @@ module.exports = merge(webpackConfig, {
   devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
+        {
+            test: /\.css$/,
+            use: [
+              {
+                loader: 'style-loader'
+              },
+              {
+                loader: 'css-loader',
+              }
+            ]
+      },
       {
         test: /\.(scss|sass)$/,
         use: [
@@ -830,7 +841,7 @@ module.exports = merge(webpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: 'production'
+        JSON.stringify('production')
       }
     }),
     new MiniCssExtractPlugin({
@@ -870,7 +881,7 @@ module.exports = merge(webpackConfig, {
 
 ### 六、打包分析
 > 有的时候，我们需要看一下webpack打包完成后，到底打包了什么东西，
-这时候就需要用到这个模块分析工具了 `webpack-bundle-analyzer`
+> 这时候就需要用到这个模块分析工具了 `webpack-bundle-analyzer`
 
 ```shell
 npm install --save-dev webpack-bundle-analyzer
