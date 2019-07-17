@@ -1,16 +1,22 @@
+
+'use strict'
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
+
 module.exports = {
   entry: {
     // 配置入口文件
-    main: path.resolve(__dirname, '../src/main.js')
+    main: resolve('../src/main.js')
   },
   output: {
     // 配置打包文件输出的目录
-    path: path.resolve(__dirname, '../dist'),
+    path: resolve('../dist'),
     // 生成的js文件名称
     filename: 'js/[name].[hash:8].js',
     // 生成的chunk名称
@@ -26,7 +32,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      vue$: 'vue/dist/vue.runtime.esm.js'
+      vue$: 'vue/dist/vue.runtime.esm.js',
+      '@': resolve('../src')
     },
     extensions: [
       '.js',
@@ -125,7 +132,7 @@ module.exports = {
     new VueLoaderPlugin(),
 
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../public/index.html')
+      template: resolve('../public/index.html')
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),

@@ -1,41 +1,21 @@
 <template>
-  <div class="App">
-    <div>
-      // router-link 组件 用来导航到哪个路由
-      <router-link to="/Home">go Home</router-link>
-      <router-link to="/About">go About</router-link>
-    </div>
-    <div>
-      <p>{{getCounter}}</p>
-      <button @click="add">add</button>
-    </div>
-    <div>
-      // 用于展示匹配到的路由视图组件
-      <router-view></router-view>
-    </div>
+  <!-- <div id="app">
+    <router-view />
+  </div> -->
+  <div id="app">
+    <transition name="fade" mode="out-in">
+      <!-- <router-view :key="key"></router-view> -->
+      <router-view v-if="$route.meta.keepAlive === false"></router-view>
+      <keep-alive v-else>
+        <router-view></router-view>
+      </keep-alive>
+
+    </transition>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
 export default {
-  name: 'App',
-  data() {
-    return {};
-  },
-  computed: {
-    ...mapGetters(['getCounter'])
-  },
-  methods: {
-    ...mapActions(['add'])
-  }
-};
-</script>
-
-<style lang="scss" scoped>
-.App {
-  text-align: center;
-  color: skyblue;
-  font-size: 28px;
+  name: 'App'
 }
-</style>
+</script>

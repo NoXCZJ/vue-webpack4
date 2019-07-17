@@ -1,14 +1,12 @@
 const path = require('path')
 const merge = require('webpack-merge')
 const webpack = require('webpack')
-const webpackConfig = require('./webpack.base.conf')
+const webpackConfig = require('./webpack.base.conf.js')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+const BundleAnalyzerPlugin= require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 module.exports = merge(webpackConfig, {
   mode: 'production',
   devtool: '#source-map',
@@ -33,6 +31,17 @@ module.exports = merge(webpackConfig, {
   },
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+          }
+        ]
+      },
       {
         test: /\.(scss|sass)$/,
         use: [
@@ -61,7 +70,7 @@ module.exports = merge(webpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: 'production'
+        NODE_ENV: JSON.stringify('production')
       }
     }),
     new MiniCssExtractPlugin({
@@ -92,4 +101,3 @@ module.exports = merge(webpackConfig, {
     })
   ]
 })
-
