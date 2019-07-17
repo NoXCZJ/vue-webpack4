@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "serve": "webpack-dev-server --config ./build/webpack.dev.conf.js",
-    "build": "webpack --config ./build/webpack.prod.conf.js"
+    "build": "webpack --config ./build/webpack.prod.conf.js",
+    "server": "http-server ./dist -p 8089 -o"
   },
   "author": "",
   "license": "ISC",

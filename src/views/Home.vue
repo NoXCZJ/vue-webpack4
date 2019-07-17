@@ -1,7 +1,7 @@
 // src/views/Home.vue
 <template>
   <div class="Home">
-    <h2>Home</h2>
+    <h2>Home111</h2>
   </div>
 </template>
 
